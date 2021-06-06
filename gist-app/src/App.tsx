@@ -5,6 +5,7 @@ import { Gist } from './models/gist';
 import { SearchBar } from './SearchBar/SearchBar';
 import { getAllGistByUser } from './services/services'
 
+let types = {};
 export const App = (): JSX.Element => {
   
   const [username, setUsername] = React.useState<string>("");
@@ -14,6 +15,10 @@ export const App = (): JSX.Element => {
     console.log("g", gistList)
   }, [gistList])
 
+  React.useEffect(() => {
+    console.log(types);
+  }, [types])
+
   const onSearchButtonClicked = (): void => {
     getAllGistByUser(username).then(data => setGistList(data as Gist[])).catch((error)=>{console.log(error)})
   }
@@ -21,7 +26,7 @@ export const App = (): JSX.Element => {
   return (
     <div>
       <SearchBar value={username} onValueChange={setUsername} onClick={onSearchButtonClicked} />
-      <GistList elems={gistList} />
+      <GistList elems={gistList} types={types} />
     </div>
   );
 }

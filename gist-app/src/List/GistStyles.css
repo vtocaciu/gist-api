@@ -1,0 +1,30 @@
+.card-container {
+    border-width: 1px;
+    border-color: rgb(0 0 0 / 20%);
+    border-style: solid;
+    margin-top: 5px;
+    margin-left: 5px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+    width:fit-content;
+}
+
+.card {
+    padding: 20px;
+}
+
+.grid-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.gist-title {
+    font-weight: bold;
+}
+
+.gist-type {
+    padding: 8px;
+    border-radius: 4px;
+    color: white;
+}
