@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { GistList } from './List/GistList';
+import { Gist } from './models/gist';
+import { SearchBar } from './SearchBar/SearchBar';
+import { getAllGistByUser } from './services/services'
 
-function App() {
+export const App = (): JSX.Element => {
+  
+  const [username, setUsername] = React.useState<string>("");
+  const [gistList, setGistList] = React.useState<Gist[]>([]);
+
+  React.useEffect(() => {
+    console.log("g", gistList)
+  }, [gistList])
+
+  const onSearchButtonClicked = (): void => {
+    getAllGistByUser(username).then(data => setGistList(data as Gist[])).catch((error)=>{console.log(error)})
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <SearchBar value={username} onValueChange={setUsername} onClick={onSearchButtonClicked} />
+      <GistList elems={gistList} />
     </div>
   );
 }
-
-export default App;
