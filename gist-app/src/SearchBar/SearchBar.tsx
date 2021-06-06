@@ -14,7 +14,7 @@ export const SearchBar = (props: SearchBarProps) => {
   return (
     <div>
       <input type="text" onChange={onValueChange} value={props.value} />
-      <button onClick={onClick}>
+      <button onClick={onClick} style={{ backgroundColor: '#007bff', color: 'white', borderRadius: '5px'}}>
         Search
       </button>
     </div>

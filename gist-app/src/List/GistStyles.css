@@ -21,10 +21,18 @@
 
 .gist-title {
     font-weight: bold;
+    text-decoration: underline;
 }
 
 .gist-type {
     padding: 8px;
     border-radius: 4px;
     color: white;
+}
+
+.gist-fork-icon {
+    height: 35px;
+    width: 35px;
+    border-radius: 6px;
+    margin-left: 5px;
 }
