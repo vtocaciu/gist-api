@@ -1,12 +1,15 @@
 import React from 'react';
 import { Content } from '../models/gist';
-import { getAllForksByGist } from '../services/services';
+import { getAllForksByGist, getFileContent } from '../services/services';
 import { GistCardProps } from './GistCardProps';
 import "./GistStyles.css";
 
 export const GistCard = (props: GistCardProps): JSX.Element => {
   var randomColor = require('randomcolor');
   const [forks, setForks] = React.useState<any[]>([])
+  const [showDialog, setShowDialog] = React.useState<boolean>(false);
+  const [content, setContent] = React.useState<string>("");
+
   const getColor = (type: string): string => {
     if (Object.keys(props.types).includes(type))
       return props.types[type];
@@ -23,12 +26,25 @@ export const GistCard = (props: GistCardProps): JSX.Element => {
     })
   }, [props.gist])
 
+  const onFileTitleClick = (gistlink: string) => {
+    setShowDialog(true);
+    getFileContent(gistlink).then((data) => {
+      console.log(data)
+      setContent(data as string)
+    });
+  }
+
+  const renderLines = () => {
+    const newText = content.split('\n').map(str => <p>{str}</p>);
+    return newText;
+  }
+
   return (
     <div className="card-container">
       {Object.keys(props.gist.files).map((key: string) => {
         return (
           <div key={key} className="card">
-            <p className="gist-title">{props.gist.files[key].filename}</p>
+            <p className="gist-title" onClick={()=>{onFileTitleClick(props.gist.files[key].raw_url)}}>{props.gist.files[key].filename}</p>
             <div style={{backgroundColor: getColor(props.gist.files[key].type)}} className="gist-type">{props.gist.files[key].type}</div>
           </div>
         )
@@ -39,6 +55,19 @@ export const GistCard = (props: GistCardProps): JSX.Element => {
           <img src={fork.owner.avatar_url} title={fork.owner.login} className="gist-fork-icon" key={fork.owner.login}/>
         )
       })}
+      {showDialog &&
+        <div className="dialog">
+        <p className="close-button" onClick={() => setShowDialog(false)}>X</p>
+        {content ?
+          <div className="file-content">
+            {renderLines().map(elem => elem)}
+          </div>
+          :
+          <div>
+            Loading....
+          </div>
+        }
+        </div>}
     </div>
   )
 }

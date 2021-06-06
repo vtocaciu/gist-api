@@ -25,3 +25,16 @@ export const getAllForksByGist = (gistid: string) => {
   });
  
 }
+
+export const getFileContent = (url: string) => {
+  return new Promise((resolve, reject) => {
+    fetch(url)
+      .then(data => {
+        if (!data.ok)
+          reject("404 error")
+        data.text()
+          .then(textData => {  resolve(textData) })
+          .catch(error => reject(error));
+    }).catch(error => reject(error));
+  });
+}

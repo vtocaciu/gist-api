@@ -36,3 +36,32 @@
     border-radius: 6px;
     margin-left: 5px;
 }
+
+.dialog {
+    display: block;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    width: 600px;
+    height: 600px;
+    background-color: #F5F5F5;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+    border-radius: 25px;
+    overflow-y: auto;
+}
+
+.close-button {
+    color: black;
+    position: fixed;
+    right: 25px;
+    font-weight: bolder;
+    font-size: 20px;
+    cursor: pointer;
+    
+}
+
+.file-content {
+    margin-top: 50px;
+    margin-left: 25px;
+}
